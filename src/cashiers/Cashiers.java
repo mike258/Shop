@@ -1,6 +1,5 @@
-package shopsStructure;
+package cashiers;
 
-import clients.Clients;
 import strategy.CashiersStrategy;
 
 public interface Cashiers {

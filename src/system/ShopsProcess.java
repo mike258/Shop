@@ -3,7 +3,7 @@ package system;
 
 import cashbox.ShopsCashbox;
 import clients.Clients;
-import shopsStructure.Cashiers;
+import cashiers.Cashiers;
 import strategy.CashiersStrategy;
 
 import java.util.LinkedList;

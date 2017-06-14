@@ -1,4 +1,4 @@
-package shopsStructure;
+package cashiers;
 
 /**
  * Created by User on 6/10/2017.

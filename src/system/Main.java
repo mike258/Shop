@@ -1,9 +1,8 @@
 package system;
 
-import cashbox.ShopsCashbox;
 import clients.FastClient;
 import clients.LazyClient;
-import shopsStructure.GaliaCashier;
+import cashiers.GaliaCashier;
 
 import java.util.Random;
 
