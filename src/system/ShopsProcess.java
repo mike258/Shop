@@ -4,6 +4,7 @@ package system;
 import cashbox.ShopsCashbox;
 import clients.Clients;
 import shopsStructure.Cashiers;
+import strategy.CashiersStrategy;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -12,19 +13,13 @@ import java.util.Random;
 public class ShopsProcess extends ShopsCashbox implements Runnable {
     private Queue<Clients> line = new LinkedList<>();
     private Cashiers cashiers;
-
-
     protected ShopsProcess(Cashiers cashiers) {
 
         this.cashiers = cashiers;
     }
-
-
     public void fillInLine(Clients clients) {
         line.add(clients);
     }
-
-
     @Override
     public void run() {
         Random random = new Random();
@@ -32,9 +27,9 @@ public class ShopsProcess extends ShopsCashbox implements Runnable {
         int numberOfClients = 0;
         int technicalIssue = 0;
         Clients client;
-
         while ((client = line.poll()) != null) {
-            totalTime += cashiers.sellGoods() + client.buyGoods();
+            CashiersStrategy strategy = cashiers.strategy(client.getClass());
+            totalTime += cashiers.sellGoods() + strategy.communicate(client);
             numberOfClients++;
             if (numberOfClients % 10 == 0) {
                 totalTime += runOutOfPaper();
@@ -44,8 +39,6 @@ public class ShopsProcess extends ShopsCashbox implements Runnable {
                 totalTime += someTechnicalIssue();
                 technicalIssue++;
             }
-
-
         }
         System.out.println("required time is " + totalTime + ". number of clients " + numberOfClients);
         if (technicalIssue > 0) {
@@ -55,6 +48,5 @@ public class ShopsProcess extends ShopsCashbox implements Runnable {
                 System.out.println("Also there were " + technicalIssue + " technical issues");
             }
         }
-
     }
 }

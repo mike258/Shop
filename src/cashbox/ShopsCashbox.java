@@ -6,11 +6,11 @@ package cashbox;
 public class ShopsCashbox implements Cashbox {
     @Override
     public int runOutOfPaper() {
-        return 15;
+        return 5;
     }
 
     @Override
     public int someTechnicalIssue() {
-        return 1000;
+        return 10;
     }
 }

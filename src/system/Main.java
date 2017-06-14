@@ -16,7 +16,7 @@ public class Main {
 
         int fast = 0;
         int lazy = 0;
-        for (int i = 0; i < rand.nextInt(100) + 1; i++) {
+        for (int i = 0; i < 10; i++) {
             if (rand.nextBoolean()) {
                 shopsProcess.fillInLine(new LazyClient());
                 lazy++;

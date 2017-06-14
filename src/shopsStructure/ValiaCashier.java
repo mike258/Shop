@@ -1,6 +1,10 @@
 package shopsStructure;
 
 import clients.Clients;
+import clients.FastClient;
+import strategy.AngryStrategy;
+import strategy.CashiersStrategy;
+import strategy.FriendlyStrategy;
 
 /**
  * Created by User on 6/10/2017.
@@ -11,11 +15,9 @@ public class ValiaCashier extends CashiersThingsToDo implements Cashiers {
         return 2;
     }
 
-
     public int tellThePrice() {
         return 5;
     }
-
 
     public int giveClientChange() {
         return 10;
@@ -26,4 +28,14 @@ public class ValiaCashier extends CashiersThingsToDo implements Cashiers {
     public int sellGoods() {
         return scanOnesGoods() + tellThePrice() + giveClientChange();
     }
+
+    @Override
+    public CashiersStrategy strategy(Class clientClass) {
+        if (FastClient.class.isAssignableFrom(clientClass)){
+            return new FriendlyStrategy();
+        }else{
+            return new AngryStrategy();
+        }
+    }
 }
+
