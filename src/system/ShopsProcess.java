@@ -29,7 +29,7 @@ public class ShopsProcess extends ShopsCashbox implements Runnable {
         Clients client;
         while ((client = line.poll()) != null) {
             CashiersStrategy strategy = cashiers.strategy(client.getClass());
-            totalTime += cashiers.sellGoods() + strategy.communicate(client);
+            totalTime += strategy.communicate(client, cashiers);
             numberOfClients++;
             if (numberOfClients % 10 == 0) {
                 totalTime += runOutOfPaper();

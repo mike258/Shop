@@ -1,5 +1,6 @@
 package strategy;
 
+import cashiers.Cashiers;
 import clients.Clients;
 import clients.FastClient;
 
@@ -9,8 +10,8 @@ import clients.FastClient;
 public class AngryStrategy implements CashiersStrategy {
     private  int angryCoefficient = 5;
     @Override
-    public int communicate(Clients clients) {
+    public int communicate(Clients clients, Cashiers cashiers) {
 
-        return clients.buyGoods() + angryCoefficient;
+        return clients.buyGoods() + angryCoefficient + cashiers.sellGoods();
     }
 }

@@ -1,5 +1,6 @@
 package strategy;
 
+import cashiers.Cashiers;
 import clients.Clients;
 
 /**
@@ -8,7 +9,7 @@ import clients.Clients;
 public class FriendlyStrategy implements CashiersStrategy {
     private int friendlyCoefficient = 5;
     @Override
-    public int communicate(Clients clients) {
-        return clients.buyGoods() - friendlyCoefficient;
+    public int communicate(Clients clients, Cashiers cashiers) {
+        return clients.buyGoods() - friendlyCoefficient + cashiers.sellGoods();
     }
 }
