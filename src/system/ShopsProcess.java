@@ -4,6 +4,7 @@ package system;
 import cashbox.ShopsCashbox;
 import clients.Clients;
 import cashiers.Cashiers;
+import clients.FillInQueue;
 import exception.runOutOfPaperException;
 import exception.techicalException;
 import strategy.CashiersStrategy;
@@ -17,9 +18,12 @@ public class ShopsProcess extends ShopsCashbox implements Runnable {
     private Queue<Clients> line = new LinkedList<>();
     private Cashiers cashiers;
 
-    protected ShopsProcess(Cashiers cashiers) {
+    public ShopsProcess(Cashiers cashiers) {
 
         this.cashiers = cashiers;
+    }
+    public ShopsProcess(){
+
     }
 
     exeptionChecker exeptionChecker = new exeptionChecker();
@@ -35,8 +39,9 @@ public class ShopsProcess extends ShopsCashbox implements Runnable {
         int numberOfClients = 0;
         int technicalIssue = 0;
         Clients client;
-
-        try {
+        FillInQueue fillInQueue = new FillInQueue();
+        fillInQueue.queue();
+       // try {
             while ((client = line.poll()) != null) {
                 CashiersStrategy strategy = cashiers.strategy(client.getClass());
                 totalTime += strategy.communicate(client, cashiers);
@@ -45,23 +50,23 @@ public class ShopsProcess extends ShopsCashbox implements Runnable {
 
                 if (numberOfClients % 10 == 0) {
                     totalTime += runOutOfPaper();
-                    exeptionChecker.runOutOfPaper();
+                   // exeptionChecker.runOutOfPaper();
 
                 }
                 if (random.nextBoolean() == true) {
 
                     totalTime += someTechnicalIssue();
                     technicalIssue++;
-                    exeptionChecker.technical();
+                 //   exeptionChecker.technical();
                 }
 
             }
-        } catch (runOutOfPaperException e) {
-            System.err.println("\n add more paper. So far statistics is \n ");
+        /*} catch (runOutOfPaperException e) {
+            System.err.println(e.getMessage());
 
         } catch (techicalException e) {
-            System.out.println("\n you need to fix cashier machine. So far statistics is \n ");
-        }
+            System.out.println(e.getMessage());
+        }*/
         System.out.println("required time is " + totalTime + ". number of clients " + numberOfClients);
         if (technicalIssue > 0) {
             if (technicalIssue == 1) {
